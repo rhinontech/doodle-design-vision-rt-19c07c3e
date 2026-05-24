@@ -9,17 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TodayRouteImport } from './routes/today'
+import { Route as ReelsRouteImport } from './routes/reels'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PetRouteImport } from './routes/pet'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as MemoryRouteImport } from './routes/memory'
 import { Route as MatchRouteImport } from './routes/match'
+import { Route as LostRouteImport } from './routes/lost'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as ComposeRouteImport } from './routes/compose'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CareRouteImport } from './routes/care'
 import { Route as BookRouteImport } from './routes/book'
+import { Route as AskRouteImport } from './routes/ask'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ThreadIdRouteImport } from './routes/thread.$id'
+import { Route as PostIdRouteImport } from './routes/post.$id'
+import { Route as CommunitySlugRouteImport } from './routes/community.$slug'
 
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReelsRoute = ReelsRouteImport.update({
+  id: '/reels',
+  path: '/reels',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -40,14 +61,39 @@ const NotificationsRoute = NotificationsRouteImport.update({
   path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryRoute = MemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatchRoute = MatchRouteImport.update({
   id: '/match',
   path: '/match',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LostRoute = LostRouteImport.update({
+  id: '/lost',
+  path: '/lost',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DiscoverRoute = DiscoverRouteImport.update({
   id: '/discover',
   path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComposeRoute = ComposeRouteImport.update({
+  id: '/compose',
+  path: '/compose',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -65,103 +111,213 @@ const BookRoute = BookRouteImport.update({
   path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AskRoute = AskRouteImport.update({
+  id: '/ask',
+  path: '/ask',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThreadIdRoute = ThreadIdRouteImport.update({
+  id: '/thread/$id',
+  path: '/thread/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostIdRoute = PostIdRouteImport.update({
+  id: '/post/$id',
+  path: '/post/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunitySlugRoute = CommunitySlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CommunityRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
   '/chat': typeof ChatRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
+  '/events': typeof EventsRoute
+  '/lost': typeof LostRoute
   '/match': typeof MatchRoute
+  '/memory': typeof MemoryRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/reels': typeof ReelsRoute
+  '/today': typeof TodayRoute
+  '/community/$slug': typeof CommunitySlugRoute
+  '/post/$id': typeof PostIdRoute
+  '/thread/$id': typeof ThreadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
   '/chat': typeof ChatRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
+  '/events': typeof EventsRoute
+  '/lost': typeof LostRoute
   '/match': typeof MatchRoute
+  '/memory': typeof MemoryRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/reels': typeof ReelsRoute
+  '/today': typeof TodayRoute
+  '/community/$slug': typeof CommunitySlugRoute
+  '/post/$id': typeof PostIdRoute
+  '/thread/$id': typeof ThreadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
   '/chat': typeof ChatRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
+  '/events': typeof EventsRoute
+  '/lost': typeof LostRoute
   '/match': typeof MatchRoute
+  '/memory': typeof MemoryRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/reels': typeof ReelsRoute
+  '/today': typeof TodayRoute
+  '/community/$slug': typeof CommunitySlugRoute
+  '/post/$id': typeof PostIdRoute
+  '/thread/$id': typeof ThreadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ask'
     | '/book'
     | '/care'
     | '/chat'
+    | '/community'
+    | '/compose'
     | '/discover'
+    | '/events'
+    | '/lost'
     | '/match'
+    | '/memory'
     | '/notifications'
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/reels'
+    | '/today'
+    | '/community/$slug'
+    | '/post/$id'
+    | '/thread/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ask'
     | '/book'
     | '/care'
     | '/chat'
+    | '/community'
+    | '/compose'
     | '/discover'
+    | '/events'
+    | '/lost'
     | '/match'
+    | '/memory'
     | '/notifications'
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/reels'
+    | '/today'
+    | '/community/$slug'
+    | '/post/$id'
+    | '/thread/$id'
   id:
     | '__root__'
     | '/'
+    | '/ask'
     | '/book'
     | '/care'
     | '/chat'
+    | '/community'
+    | '/compose'
     | '/discover'
+    | '/events'
+    | '/lost'
     | '/match'
+    | '/memory'
     | '/notifications'
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/reels'
+    | '/today'
+    | '/community/$slug'
+    | '/post/$id'
+    | '/thread/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AskRoute: typeof AskRoute
   BookRoute: typeof BookRoute
   CareRoute: typeof CareRoute
   ChatRoute: typeof ChatRoute
+  CommunityRoute: typeof CommunityRouteWithChildren
+  ComposeRoute: typeof ComposeRoute
   DiscoverRoute: typeof DiscoverRoute
+  EventsRoute: typeof EventsRoute
+  LostRoute: typeof LostRoute
   MatchRoute: typeof MatchRoute
+  MemoryRoute: typeof MemoryRoute
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   PetRoute: typeof PetRoute
   ProfileRoute: typeof ProfileRoute
+  ReelsRoute: typeof ReelsRoute
+  TodayRoute: typeof TodayRoute
+  PostIdRoute: typeof PostIdRoute
+  ThreadIdRoute: typeof ThreadIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reels': {
+      id: '/reels'
+      path: '/reels'
+      fullPath: '/reels'
+      preLoaderRoute: typeof ReelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -190,6 +346,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory': {
+      id: '/memory'
+      path: '/memory'
+      fullPath: '/memory'
+      preLoaderRoute: typeof MemoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/match': {
       id: '/match'
       path: '/match'
@@ -197,11 +360,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lost': {
+      id: '/lost'
+      path: '/lost'
+      fullPath: '/lost'
+      preLoaderRoute: typeof LostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/discover': {
       id: '/discover'
       path: '/discover'
       fullPath: '/discover'
       preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compose': {
+      id: '/compose'
+      path: '/compose'
+      fullPath: '/compose'
+      preLoaderRoute: typeof ComposeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -225,6 +416,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ask': {
+      id: '/ask'
+      path: '/ask'
+      fullPath: '/ask'
+      preLoaderRoute: typeof AskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -232,31 +430,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thread/$id': {
+      id: '/thread/$id'
+      path: '/thread/$id'
+      fullPath: '/thread/$id'
+      preLoaderRoute: typeof ThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post/$id': {
+      id: '/post/$id'
+      path: '/post/$id'
+      fullPath: '/post/$id'
+      preLoaderRoute: typeof PostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community/$slug': {
+      id: '/community/$slug'
+      path: '/$slug'
+      fullPath: '/community/$slug'
+      preLoaderRoute: typeof CommunitySlugRouteImport
+      parentRoute: typeof CommunityRoute
+    }
   }
 }
 
+interface CommunityRouteChildren {
+  CommunitySlugRoute: typeof CommunitySlugRoute
+}
+
+const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunitySlugRoute: CommunitySlugRoute,
+}
+
+const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
+  CommunityRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AskRoute: AskRoute,
   BookRoute: BookRoute,
   CareRoute: CareRoute,
   ChatRoute: ChatRoute,
+  CommunityRoute: CommunityRouteWithChildren,
+  ComposeRoute: ComposeRoute,
   DiscoverRoute: DiscoverRoute,
+  EventsRoute: EventsRoute,
+  LostRoute: LostRoute,
   MatchRoute: MatchRoute,
+  MemoryRoute: MemoryRoute,
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   PetRoute: PetRoute,
   ProfileRoute: ProfileRoute,
+  ReelsRoute: ReelsRoute,
+  TodayRoute: TodayRoute,
+  PostIdRoute: PostIdRoute,
+  ThreadIdRoute: ThreadIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

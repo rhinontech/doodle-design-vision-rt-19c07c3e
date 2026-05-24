@@ -19,7 +19,7 @@ const tiles = [
 
 function CareScreen() {
   return (
-    <AppShell activeTab="care">
+    <AppShell showNav={false}>
       <ScreenHeader title="Care & Health" backTo="/" />
 
       <div className="px-5 pt-2">

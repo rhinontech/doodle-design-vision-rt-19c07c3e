@@ -1,51 +1,64 @@
-# Furr Circle — Full Visual Design Build
+# Furr Circle — Phase 1 Completion Plan
 
-Translate the two reference PDFs (Home + Book a Clinic) into a complete TanStack Start web app, styled as a phone-shell preview so all screens are viewable in browser. The doodle-illustration aesthetic from the PDFs drives the whole system.
+Phase 1 thesis from the research doc: **build the emotional social + community layer first**. Vet ecosystem is parked for Phase 2 (current `/book` + `/care` stay as visual placeholders, no deepening).
 
-## Visual language (locked from the PDFs)
+## What already exists
 
-- **Surface**: soft warm-gray page bg (#F2F3F5), white cards with 24px radius, subtle soft shadows
-- **Typography**: Poppins (display/headings) + Inter (body) — matches wireframe spec
-- **Color accents** (from PDFs, overriding the all-blue scheme in the spec):
-  - Indigo `#5B6CFF` — primary action cards & buttons (checkup card, Pay & Book)
-  - Coral `#FF7B5C` — secondary event cards & active nav pill
-  - Sunshine `#FFC542` — tertiary cards
-  - Green `#22C55E` — success/verified, dashed selection borders
-  - Pink `#FF6B8B` — heart/like
-- **Doodles**: hand-drawn flat illustrations (boy + dog scene, stethoscope, party popper, vet doodle, paw, bone) generated via imagegen, transparent PNGs
-- **Bottom nav**: floating pill bar with icon + active pill label (Home / Bone / Stethoscope / Grid) matching PDF 1
-- **Selection style**: dashed green outline + green check badge (matching PDF 2 clinic card)
+Home, Match (swipe), Discover, Profile, Pet profile, Notifications, Chat list, Onboarding, plus Care/Book (Phase 2 placeholders). Design system (Poppins/Inter, indigo/coral/sunshine/green/pink, doodle illustrations, floating pill nav) is locked.
 
-## Screens to build (priority order)
+## What Phase 1 still needs
 
-Core flow first, secondary screens as polished placeholders within the same design system:
+Grouped by the three retention pillars: **Feed**, **Community**, **Pet Identity**.
 
-1. **Home** — exact recreation of PDF 1 (greeting, "How is Moona doing today?" status card with doodle, Upcoming events colored cards)
-2. **Book a Clinic** — exact recreation of PDF 2 (pet profile chip, date/time pills, clinic cards w/ ratings, Pay & Book)
-3. **Care Hub** — vet, symptom checker, passport tiles in doodle style
-4. **Pet Profile (Public)** — Moona's profile with stats, badges, photo grid
-5. **Community Feed** — post cards with doodle avatars
-6. **Match Hub** — swipe-card stack (adoption mode)
-7. **Discover** — search + reels row + adoption cards
-8. **Owner Profile** — settings entry, pets list
-9. **Onboarding** — splash + 3 slides + login (condensed into one route with steps)
-10. **Notifications + Chat list** — utility screens
+### 1. Social Feed (daily engagement engine)
+- `/feed` — vertical scroll of post cards: doodle avatar, pet name + owner, image/video placeholder, caption, like / comment / share / save row, hashtag chips. Mix of photo posts, rescue before/after cards, milestone cards (birthday, gotcha day).
+- `/reels` — full-bleed vertical reel viewer (snap scroll), right-rail action stack (heart, comment, share, profile), bottom caption + audio strip. Static thumbnails as stand-ins for video.
+- `/post/$id` — post detail with full caption, comment thread, reply input.
+- `/compose` — create-post sheet: pick pet, add photo (placeholder tiles), caption, hashtags, post-type toggle (Photo / Reel / Milestone / Rescue story).
+- Promote Feed to the **Home tab**; current `/` (status + events) moves to `/today` and becomes a secondary "Today" screen reachable from profile.
 
-## Technical approach
+### 2. Community Layer (Reddit/Quora-style)
+- `/community` — list of joined Circles (Golden Retriever Club, Indie Dogs India, First-Time Owners, Rescue Stories, Persian Cat Lovers, Training, Health) with member counts and unread dots. "Discover circles" row at top.
+- `/community/$slug` — single Circle: cover banner, about, join button, tabs **Discussions / Top / Media**, list of question cards (title, snippet, upvotes, replies, tag).
+- `/thread/$id` — discussion detail: question header, asker chip, body, vote arrows, threaded answers (top-voted first), reply input. Medical-disclaimer banner on health threads.
+- `/ask` — ask-a-question composer: title, body, circle picker, tag chips.
 
-- Single route `/` showing a phone-shell device frame (iPhone-ish, ~390×844) centered on a soft background, with a **screen switcher** sidebar (desktop) / scroll-snap carousel (mobile) so the user can preview every screen
-- Each screen = its own route under `/app/*` rendered inside the phone shell via nested layout; deep-linkable
-- Design tokens in `src/styles.css` (oklch) — replace defaults with the palette above
-- Components: `PhoneShell`, `BottomNav`, `ScreenHeader`, `DoodleCard`, `EventCard`, `ClinicCard`, `StatusChecklist`
-- Generate ~8 doodle illustrations with `imagegen` (transparent PNG, flat vector style matching PDFs): boy+dog, vet scene, party popper, stethoscope, paw mark, bone, cat doodle, community doodle
-- Use `lucide-react` for UI icons (back, more, arrow, calendar, clock)
-- No backend needed — static demo content
-- Framer Motion for tab transitions and card hover
+### 3. Pet Identity & Emotional Hooks
+- Extend `/pet` with **Timeline** tab (chronological milestones: adopted, first vet visit, birthday, vaccine, weight log) and **Passport** tab (vaccine list, microchip, allergies, vet contact) — read-only Phase 1.
+- `/pet/$id/memory` — Memory Vault: photo-grid scrapbook grouped by year, with a "Pet Aura" personality card at top (zodiac, mood, top traits) — highly shareable.
+- `/events` — Local pet events / meetups list (adoption drives, playdates, training meets) with date, location, attendee avatars, RSVP pill.
+- `/lost` — Lost & Found feed: alert cards (last seen, area, reward), "Report lost pet" CTA, "Spotted a pet" CTA. Geo-tag chips only (no real map).
 
-## Out of scope
+### 4. Navigation refresh
+Bottom nav becomes the canonical Phase 1 IA:
 
-- Real auth / backend (Lovable Cloud not required for a visual design build)
-- Reels video playback (static placeholders)
-- Lost & Found, Settings detail screens (linked but minimal)
+```
+Feed   |   Community   |   Match   |   Discover   |   Profile
+```
 
-Final deliverable: a browseable design prototype of Furr Circle with the 2 PDF screens pixel-faithful and the rest of the app extended in the same doodle visual language.
+- Care, Book, Notifications, Chat, Today, Events, Lost & Found, Memory Vault, Compose, Ask are reached from headers, profile rows, or floating FABs — not the main nav.
+- A `+` FAB on Feed opens an action sheet: New Post / New Reel / Ask Community / Add Memory.
+
+### 5. Cross-cutting polish
+- Reusable `PostCard`, `ReelCard`, `CircleCard`, `ThreadCard`, `MilestoneRow`, `EventCard`, `LostCard`, `CommentItem`, `VoteStack` components — all in the existing doodle/soft-shadow system.
+- Add 4–5 more doodle assets via imagegen: rescue scene, birthday cake + dog, lost-pet poster, group of pets (community), trophy/badge.
+- Static demo data only — no Lovable Cloud yet (matches Phase 1 "growth-only, no monetization, no backend" stance).
+
+## Explicitly out of scope (Phase 2+)
+Vet booking depth, telehealth, AI symptom checker, marketplace, creator monetization, premium membership, real auth, real media upload, push notifications, moderation tooling.
+
+## Technical notes
+- All new screens are TanStack Start file routes under `src/routes/` with `head()` metadata per route.
+- Existing `AppShell` + `BottomNav` are reused; `BottomNav` updated to the new 5-tab IA (Feed/Community/Match/Discover/Profile) with a `NavKey` union update.
+- No new dependencies expected beyond what's already installed (`lucide-react`, framer-motion).
+- Files added: ~10 new route files, ~9 new components, ~5 new doodle PNGs in `src/assets/`.
+
+## Suggested build order
+1. Nav refactor + Feed (`/feed`, `/post/$id`, `/compose`) — biggest retention lever.
+2. Community (`/community`, `/community/$slug`, `/thread/$id`, `/ask`).
+3. Reels (`/reels`).
+4. Pet Timeline + Passport tabs + Memory Vault.
+5. Events + Lost & Found.
+6. Doodle asset pass + final visual QA across all screens.
+
+Approve and I'll build in that order.

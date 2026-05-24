@@ -1,158 +1,154 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ChevronRight, ArrowRight, Heart } from "lucide-react";
+import { Heart, MessageCircle, Send, Bookmark, Plus, Bell, Search } from "lucide-react";
+import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
-import boyDog from "@/assets/doodle-boy-dog.png";
-import stethoscope from "@/assets/icon-stethoscope.png";
-import party from "@/assets/icon-party.png";
-import star from "@/assets/icon-star.png";
-import walk from "@/assets/doodle-walk.png";
+import { posts, type Post } from "@/lib/demo-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Furr Circle — Where Pets Become Social" },
-      { name: "description", content: "Your pet's social home — match, care, community." },
+      { name: "description", content: "The social ecosystem for modern pet parents." },
     ],
   }),
-  component: HomeScreen,
+  component: FeedScreen,
 });
 
-function HomeScreen() {
+function FeedScreen() {
+  const [open, setOpen] = useState(false);
   return (
-    <AppShell activeTab="home">
-      {/* Greeting */}
-      <header className="flex items-start justify-between px-6 pt-10">
-        <div>
-          <p className="font-display text-base text-foreground/70">
-            Hi Goutham <span className="ml-1">👋</span>
-          </p>
-          <h1 className="mt-3 font-display text-[34px] leading-[1.1] font-700 tracking-tight">
-            How is Moona<br />doing today?
-          </h1>
-        </div>
-        <button className="card-shadow flex h-12 w-12 items-center justify-center rounded-full bg-white">
-          <img src={star} alt="" className="h-7 w-7" loading="lazy" />
-        </button>
-      </header>
-
-      {/* Status card */}
-      <div className="mt-6 px-5">
-        <div className="card-shadow relative overflow-hidden rounded-3xl bg-white p-5">
-          <div className="grid grid-cols-[1fr_auto] gap-3">
-            <ul className="space-y-3 self-center">
-              <StatusRow color="success" label="Park Walk" />
-              <StatusRow color="success" label="Food" meta="3/3" />
-              <StatusRow color="sunshine" label="Snack" meta="1/2" />
-              <div className="my-2 h-px w-32 bg-border" />
-              <StatusRow color="pinky" icon="heart" label="Good" meta="87%" />
-            </ul>
-            <img
-              src={boyDog}
-              alt="Goutham hugging Moona"
-              className="h-[180px] w-auto object-contain"
-              width={768}
-              height={640}
-            />
-          </div>
-        </div>
+    <AppShell activeTab="feed">
+      <FeedHeader />
+      <StoryRail />
+      <div className="mt-4 space-y-5 px-4">
+        {posts.map((p) => (
+          <PostCard key={p.id} post={p} />
+        ))}
       </div>
 
-      {/* Upcoming events */}
-      <div className="mt-8 flex items-center justify-between px-6">
-        <h2 className="font-display text-lg font-600 text-foreground">Upcoming events</h2>
-        <ArrowRight className="h-5 w-5 text-foreground" />
-      </div>
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="Create"
+        className="fixed bottom-24 left-1/2 z-30 -translate-x-1/2 translate-x-[110px] card-shadow flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white transition-transform active:scale-95"
+        style={{ marginLeft: "0" }}
+      >
+        <Plus className="h-7 w-7" strokeWidth={2.4} />
+      </button>
 
-      <div className="mt-4 space-y-4 px-5">
-        <EventCard
-          bg="bg-primary"
-          icon={stethoscope}
-          title="Time for monthly"
-          subtitle="general checkup"
-          to="/book"
-        />
-        <EventCard
-          bg="bg-coral"
-          icon={party}
-          title="Her birthday is near,"
-          subtitle="buy gifts and treats"
-          to="/discover"
-        />
-        <EventCard
-          bg="bg-sunshine"
-          icon={walk}
-          title="Schedule a"
-          subtitle="weekend playdate"
-          to="/match"
-          textClass="text-foreground"
-          imgClass="h-14 w-14 object-cover"
-        />
-      </div>
+      {open && <ComposeSheet onClose={() => setOpen(false)} />}
     </AppShell>
   );
 }
 
-function StatusRow({
-  color,
-  label,
-  meta,
-  icon,
-}: {
-  color: "success" | "sunshine" | "pinky";
-  label: string;
-  meta?: string;
-  icon?: "heart";
-}) {
-  const bg = {
-    success: "bg-success",
-    sunshine: "bg-sunshine",
-    pinky: "bg-pinky",
-  }[color];
+function FeedHeader() {
   return (
-    <li className="flex items-center gap-3">
-      <span className={`flex h-7 w-7 items-center justify-center rounded-full ${bg}`}>
-        {icon === "heart" ? (
-          <Heart className="h-4 w-4 fill-white text-white" />
-        ) : (
-          <Check className="h-4 w-4 text-white" strokeWidth={3} />
-        )}
-      </span>
-      <span className="font-display text-[17px] font-500 text-foreground">{label}</span>
-      {meta && <span className="ml-2 text-sm text-foreground/60">{meta}</span>}
-    </li>
+    <header className="sticky top-0 z-20 flex items-center justify-between bg-surface/85 px-5 pt-8 pb-3 backdrop-blur">
+      <div>
+        <h1 className="font-display text-3xl font-700 leading-none tracking-tight">
+          Furr<span className="text-coral">Circle</span>
+        </h1>
+        <p className="mt-1 text-xs text-foreground/60">Today's circle, picked for Moona</p>
+      </div>
+      <div className="flex gap-2">
+        <Link to="/discover" className="rounded-full bg-white p-2.5 card-shadow"><Search className="h-5 w-5" /></Link>
+        <Link to="/notifications" className="relative rounded-full bg-white p-2.5 card-shadow">
+          <Bell className="h-5 w-5" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-coral" />
+        </Link>
+      </div>
+    </header>
   );
 }
 
-function EventCard({
-  bg,
-  icon,
-  title,
-  subtitle,
-  to,
-  textClass = "text-white",
-  imgClass = "h-10 w-10 object-contain",
-}: {
-  bg: string;
-  icon: string;
-  title: string;
-  subtitle: string;
-  to: string;
-  textClass?: string;
-  imgClass?: string;
-}) {
+function StoryRail() {
+  const stories = [
+    { label: "Your reel", isYou: true, tint: "bg-primary/10" },
+    { label: "Moona", tint: "bg-coral/20" },
+    { label: "Mochi", tint: "bg-primary/10" },
+    { label: "Kobi", tint: "bg-sunshine/30" },
+    { label: "Biscuit", tint: "bg-pinky/15" },
+    { label: "Rocky", tint: "bg-success/15" },
+  ];
   return (
-    <Link
-      to={to}
-      className={`card-shadow flex items-center gap-4 rounded-3xl ${bg} px-4 py-5 transition-transform active:scale-[0.98]`}
-    >
-      <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white">
-        <img src={icon} alt="" className={imgClass} loading="lazy" />
-      </span>
-      <div className={`flex-1 font-display text-[19px] leading-tight font-600 ${textClass}`}>
-        <p>{title}</p>
-        <p>{subtitle}</p>
+    <div className="flex gap-3 overflow-x-auto px-5 pt-2 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {stories.map((s) => (
+        <Link key={s.label} to="/reels" className="flex w-16 flex-col items-center gap-1.5">
+          <div className={`h-16 w-16 rounded-full p-[2.5px] ${s.isYou ? "bg-foreground/15" : "bg-gradient-to-br from-coral via-pinky to-primary"}`}>
+            <div className={`flex h-full w-full items-center justify-center rounded-full ${s.tint} ring-2 ring-surface`}>
+              {s.isYou && <Plus className="h-5 w-5 text-foreground/70" />}
+            </div>
+          </div>
+          <span className="truncate text-[11px] font-500 text-foreground/70">{s.label}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function PostCard({ post }: { post: Post }) {
+  return (
+    <article className="card-shadow overflow-hidden rounded-3xl bg-white">
+      <header className="flex items-center gap-3 px-4 pt-4">
+        <div className={`h-10 w-10 overflow-hidden rounded-full ${post.tint}`}>
+          <img src={post.avatar} alt="" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div className="flex-1">
+          <p className="font-display text-sm font-700 leading-tight">{post.pet}</p>
+          <p className="text-[11px] text-foreground/55">by {post.owner} · {post.time}</p>
+        </div>
+        {post.type === "rescue" && <span className="rounded-full bg-success px-2.5 py-1 font-display text-[10px] font-700 text-white">RESCUE</span>}
+        {post.type === "milestone" && <span className="rounded-full bg-pinky px-2.5 py-1 font-display text-[10px] font-700 text-white">MILESTONE</span>}
+      </header>
+
+      <Link to="/post/$id" params={{ id: post.id }} className="mt-3 block">
+        <div className={`mx-4 flex aspect-square items-center justify-center overflow-hidden rounded-2xl ${post.tint}`}>
+          <img src={post.image} alt={post.pet} className="h-full w-full object-contain p-6" loading="lazy" />
+        </div>
+      </Link>
+
+      <div className="flex items-center gap-4 px-4 pt-3 text-foreground">
+        <button className="flex items-center gap-1.5"><Heart className="h-6 w-6" /><span className="text-sm font-600">{post.likes}</span></button>
+        <button className="flex items-center gap-1.5"><MessageCircle className="h-6 w-6" /><span className="text-sm font-600">{post.comments}</span></button>
+        <button><Send className="h-6 w-6" /></button>
+        <button className="ml-auto"><Bookmark className="h-6 w-6" /></button>
       </div>
-      <ChevronRight className={`h-6 w-6 ${textClass}`} />
-    </Link>
+
+      <p className="px-4 pt-2 text-sm leading-snug"><b className="font-display font-700">{post.pet}</b> {post.caption}</p>
+      <p className="px-4 pb-4 pt-1 text-xs font-500 text-primary">
+        {post.tags.map((t) => `#${t}`).join("  ")}
+      </p>
+    </article>
+  );
+}
+
+function ComposeSheet({ onClose }: { onClose: () => void }) {
+  const opts = [
+    { label: "New Post", desc: "Share a photo of your pet", tint: "bg-coral/15", to: "/compose" },
+    { label: "New Reel", desc: "Quick video moment", tint: "bg-primary/10", to: "/reels" },
+    { label: "Ask the Community", desc: "Get help from pet parents", tint: "bg-sunshine/30", to: "/ask" },
+    { label: "Add Memory", desc: "Save to Moona's vault", tint: "bg-pinky/15", to: "/memory" },
+  ];
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-foreground/30 backdrop-blur-sm" />
+      <div
+        className="relative mx-auto w-full max-w-[440px] rounded-t-[32px] bg-white p-5 pb-8 card-shadow"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-foreground/15" />
+        <h2 className="px-1 font-display text-xl font-700">Create</h2>
+        <div className="mt-3 space-y-2">
+          {opts.map((o) => (
+            <Link key={o.label} to={o.to} onClick={onClose} className="flex items-center gap-4 rounded-2xl bg-surface p-4 transition active:scale-[0.98]">
+              <span className={`h-12 w-12 rounded-2xl ${o.tint}`} />
+              <div className="flex-1">
+                <p className="font-display text-base font-700">{o.label}</p>
+                <p className="text-xs text-foreground/60">{o.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
