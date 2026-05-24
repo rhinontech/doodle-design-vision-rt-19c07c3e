@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award } from "lucide-react";
+import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award, Sun, CalendarDays, Siren, Stethoscope } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import boyDog from "@/assets/doodle-boy-dog.png";
 
@@ -48,6 +48,14 @@ function ProfileScreen() {
         ))}
       </div>
 
+      <h2 className="mt-6 px-6 font-display text-lg font-600">Quick access</h2>
+      <div className="mt-3 grid grid-cols-2 gap-3 px-5">
+        <Tile to="/today" icon={Sun} label="Today" tint="bg-coral/15" />
+        <Tile to="/events" icon={CalendarDays} label="Events" tint="bg-sunshine/30" />
+        <Tile to="/lost" icon={Siren} label="Lost & Found" tint="bg-pinky/15" />
+        <Tile to="/care" icon={Stethoscope} label="Care" tint="bg-primary/10" />
+      </div>
+
       <h2 className="mt-6 px-6 font-display text-lg font-600">Activity</h2>
       <div className="mt-3 space-y-3 px-5 pb-6">
         <Row to="/notifications" icon={Bell} label="Notifications" meta="3 new" tint="bg-sunshine/30" />
@@ -68,6 +76,15 @@ function Row({ to, icon: Icon, label, meta, tint }: { to: string; icon: typeof B
       <p className="flex-1 font-display text-base font-600">{label}</p>
       <span className="text-sm text-foreground/50">{meta}</span>
       <ChevronRight className="h-4 w-4 text-foreground/40" />
+    </Link>
+  );
+}
+
+function Tile({ to, icon: Icon, label, tint }: { to: string; icon: typeof Bell; label: string; tint: string }) {
+  return (
+    <Link to={to} className={`card-shadow flex flex-col gap-2 rounded-2xl ${tint} p-4`}>
+      <Icon className="h-5 w-5 text-foreground" />
+      <p className="font-display text-sm font-700">{label}</p>
     </Link>
   );
 }
