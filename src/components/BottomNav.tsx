@@ -1,14 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { Home, Bone, Stethoscope, LayoutGrid, Heart } from "lucide-react";
+import { Home, Users, Bone, Compass, LayoutGrid } from "lucide-react";
 
-export type NavKey = "home" | "match" | "care" | "discover" | "profile";
+export type NavKey = "feed" | "community" | "match" | "discover" | "profile";
 
-const items: { key: NavKey; icon: typeof Home; label: string; to: string; color: string }[] = [
-  { key: "home", icon: Home, label: "Home", to: "/", color: "text-coral" },
-  { key: "match", icon: Bone, label: "Match", to: "/match", color: "text-foreground" },
-  { key: "care", icon: Stethoscope, label: "Care", to: "/care", color: "text-foreground" },
-  { key: "discover", icon: Heart, label: "Discover", to: "/discover", color: "text-foreground" },
-  { key: "profile", icon: LayoutGrid, label: "Profile", to: "/profile", color: "text-foreground" },
+const items: { key: NavKey; icon: typeof Home; label: string; to: string }[] = [
+  { key: "feed", icon: Home, label: "Feed", to: "/" },
+  { key: "community", icon: Users, label: "Circles", to: "/community" },
+  { key: "match", icon: Bone, label: "Match", to: "/match" },
+  { key: "discover", icon: Compass, label: "Discover", to: "/discover" },
+  { key: "profile", icon: LayoutGrid, label: "Profile", to: "/profile" },
 ];
 
 export function BottomNav({ active }: { active: NavKey }) {
