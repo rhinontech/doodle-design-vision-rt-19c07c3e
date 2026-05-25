@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award, Sun, CalendarDays, Siren, Stethoscope } from "lucide-react";
+import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award, Sun, CalendarDays, Siren, Stethoscope, Share2 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import boyDog from "@/assets/doodle-boy-dog.png";
 
@@ -13,9 +13,14 @@ function ProfileScreen() {
     <AppShell activeTab="profile">
       <header className="flex items-center justify-between px-6 pt-10">
         <h1 className="font-display text-3xl font-700">Profile</h1>
-        <button className="rounded-full bg-white p-2 card-shadow">
-          <Settings className="h-5 w-5" />
-        </button>
+        <div className="flex gap-2">
+          <Link to="/u/$handle" params={{ handle: "goutham" }} className="rounded-full bg-white p-2 card-shadow">
+            <Share2 className="h-5 w-5" />
+          </Link>
+          <button className="rounded-full bg-white p-2 card-shadow">
+            <Settings className="h-5 w-5" />
+          </button>
+        </div>
       </header>
 
       <div className="mt-6 px-5">

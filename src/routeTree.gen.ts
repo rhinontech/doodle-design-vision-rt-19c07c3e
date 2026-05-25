@@ -27,8 +27,10 @@ import { Route as CareRouteImport } from './routes/care'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AskRouteImport } from './routes/ask'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UHandleRouteImport } from './routes/u.$handle'
 import { Route as ThreadIdRouteImport } from './routes/thread.$id'
 import { Route as PostIdRouteImport } from './routes/post.$id'
+import { Route as PIdRouteImport } from './routes/p.$id'
 import { Route as CommunitySlugRouteImport } from './routes/community.$slug'
 
 const TodayRoute = TodayRouteImport.update({
@@ -121,6 +123,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UHandleRoute = UHandleRouteImport.update({
+  id: '/u/$handle',
+  path: '/u/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThreadIdRoute = ThreadIdRouteImport.update({
   id: '/thread/$id',
   path: '/thread/$id',
@@ -129,6 +136,11 @@ const ThreadIdRoute = ThreadIdRouteImport.update({
 const PostIdRoute = PostIdRouteImport.update({
   id: '/post/$id',
   path: '/post/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PIdRoute = PIdRouteImport.update({
+  id: '/p/$id',
+  path: '/p/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunitySlugRoute = CommunitySlugRouteImport.update({
@@ -157,8 +169,10 @@ export interface FileRoutesByFullPath {
   '/reels': typeof ReelsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
+  '/u/$handle': typeof UHandleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -180,8 +194,10 @@ export interface FileRoutesByTo {
   '/reels': typeof ReelsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
+  '/u/$handle': typeof UHandleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -204,8 +220,10 @@ export interface FileRoutesById {
   '/reels': typeof ReelsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
+  '/u/$handle': typeof UHandleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -229,8 +247,10 @@ export interface FileRouteTypes {
     | '/reels'
     | '/today'
     | '/community/$slug'
+    | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
+    | '/u/$handle'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -252,8 +272,10 @@ export interface FileRouteTypes {
     | '/reels'
     | '/today'
     | '/community/$slug'
+    | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
+    | '/u/$handle'
   id:
     | '__root__'
     | '/'
@@ -275,8 +297,10 @@ export interface FileRouteTypes {
     | '/reels'
     | '/today'
     | '/community/$slug'
+    | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
+    | '/u/$handle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -298,8 +322,10 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   ReelsRoute: typeof ReelsRoute
   TodayRoute: typeof TodayRoute
+  PIdRoute: typeof PIdRoute
   PostIdRoute: typeof PostIdRoute
   ThreadIdRoute: typeof ThreadIdRoute
+  UHandleRoute: typeof UHandleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -430,6 +456,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/u/$handle': {
+      id: '/u/$handle'
+      path: '/u/$handle'
+      fullPath: '/u/$handle'
+      preLoaderRoute: typeof UHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thread/$id': {
       id: '/thread/$id'
       path: '/thread/$id'
@@ -442,6 +475,13 @@ declare module '@tanstack/react-router' {
       path: '/post/$id'
       fullPath: '/post/$id'
       preLoaderRoute: typeof PostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/p/$id': {
+      id: '/p/$id'
+      path: '/p/$id'
+      fullPath: '/p/$id'
+      preLoaderRoute: typeof PIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community/$slug': {
@@ -485,19 +525,11 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   ReelsRoute: ReelsRoute,
   TodayRoute: TodayRoute,
+  PIdRoute: PIdRoute,
   PostIdRoute: PostIdRoute,
   ThreadIdRoute: ThreadIdRoute,
+  UHandleRoute: UHandleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
