@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Search, Heart, MapPin, Star, Stethoscope, Phone } from "lucide-react";
+import { Search, Heart, MapPin, Star, Stethoscope, Phone, HandHeart, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
+import { getPetStatus } from "@/lib/pet-status";
 import vet from "@/assets/doodle-vet.png";
 import puppy from "@/assets/doodle-puppy.png";
 import cat from "@/assets/doodle-cat.png";
+import boyDog from "@/assets/doodle-boy-dog.png";
 
 export const Route = createFileRoute("/discover")({
   head: () => ({ meta: [{ title: "Discover — Furr Circle" }] }),
