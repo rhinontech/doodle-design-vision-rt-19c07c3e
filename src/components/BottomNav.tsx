@@ -13,24 +13,27 @@ const items: { key: NavKey; icon: typeof Home; label: string; to: string }[] = [
 
 export function BottomNav({ active }: { active: NavKey }) {
   return (
-    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 px-4 pb-4 pt-2">
-      <div className="nav-shadow flex items-center justify-around rounded-full bg-white px-3 py-3">
+    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border bg-white pb-[env(safe-area-inset-bottom)]">
+      <div className="flex items-center justify-around px-2 pt-2 pb-2">
         {items.map(({ key, icon: Icon, label, to }) => {
           const isActive = key === active;
           return (
             <Link
               key={key}
               to={to}
-              className={`flex items-center gap-2 rounded-full transition-all ${
-                isActive
-                  ? "bg-[oklch(0.97_0.04_30)] px-4 py-2 text-coral"
-                  : "p-2 text-foreground/70 hover:text-foreground"
-              }`}
+              className="flex flex-1 flex-col items-center gap-1 py-1"
             >
-              <Icon className="h-6 w-6" strokeWidth={2} />
-              {isActive && (
-                <span className="text-sm font-semibold font-display text-coral">{label}</span>
-              )}
+              <Icon
+                className={`h-6 w-6 ${isActive ? "text-coral" : "text-foreground/55"}`}
+                strokeWidth={isActive ? 2.4 : 2}
+              />
+              <span
+                className={`font-display text-[11px] font-600 ${
+                  isActive ? "text-coral" : "text-foreground/55"
+                }`}
+              >
+                {label}
+              </span>
             </Link>
           );
         })}
