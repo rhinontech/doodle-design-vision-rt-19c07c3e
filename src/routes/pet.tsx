@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Share2, MapPin, ShieldCheck, Cake, Ruler, Sparkles, Syringe, BadgeCheck, Phone } from "lucide-react";
-import { useState } from "react";
+import { Heart, Share2, MapPin, ShieldCheck, Cake, Ruler, Sparkles, Syringe, BadgeCheck, Phone, HandHeart, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { moonaTimeline, moonaPassport } from "@/lib/demo-data";
+import { getPetStatus, setPetStatus } from "@/lib/pet-status";
 import boyDog from "@/assets/doodle-boy-dog.png";
 
 export const Route = createFileRoute("/pet")({
