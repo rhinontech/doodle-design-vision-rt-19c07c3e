@@ -17,9 +17,9 @@ function ProfileScreen() {
           <Link to="/u/$handle" params={{ handle: "goutham" }} className="rounded-full bg-white p-2 card-shadow">
             <Share2 className="h-5 w-5" />
           </Link>
-          <button className="rounded-full bg-white p-2 card-shadow">
+          <Link to="/settings" className="rounded-full bg-white p-2 card-shadow">
             <Settings className="h-5 w-5" />
-          </button>
+          </Link>
         </div>
       </header>
 

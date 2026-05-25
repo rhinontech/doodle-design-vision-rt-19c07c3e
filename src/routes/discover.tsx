@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Search, Heart, MapPin, Star, Stethoscope, Phone } from "lucide-react";
+import { Search, Heart, MapPin, Star, Stethoscope, Phone, HandHeart, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
+import { getPetStatus } from "@/lib/pet-status";
 import vet from "@/assets/doodle-vet.png";
 import puppy from "@/assets/doodle-puppy.png";
 import cat from "@/assets/doodle-cat.png";
+import boyDog from "@/assets/doodle-boy-dog.png";
 
 export const Route = createFileRoute("/discover")({
   head: () => ({ meta: [{ title: "Discover — Furr Circle" }] }),
@@ -17,7 +20,31 @@ const nearbyVets = [
   { name: "Bandra Pet Wellness", spec: "Dental · Grooming", dist: "3.0 km", rating: 4.6, open: false, tint: "bg-sunshine/30" },
 ];
 
+type Mode = "all" | "adoption" | "foster";
+
+const allPets = [
+  { img: puppy, name: "Biscuit", breed: "Beagle", dist: "0.8 km", tint: "bg-sunshine/30", handle: "biscuit", adoption: true, foster: false },
+  { img: cat, name: "Mochi", breed: "Persian", dist: "1.2 km", tint: "bg-pinky/20", handle: "mochi", adoption: true, foster: true },
+  { img: boyDog, name: "Rocky", breed: "Indie", dist: "1.6 km", tint: "bg-primary/10", handle: "rocky", adoption: false, foster: true },
+  { img: puppy, name: "Snow", breed: "Pom mix", dist: "2.4 km", tint: "bg-success/15", handle: "snow", adoption: false, foster: true },
+];
+
 function DiscoverScreen() {
+  const [mode, setMode] = useState<Mode>("all");
+  const [moonaStatus, setMoonaStatus] = useState({ adoption: false, foster: false });
+
+  useEffect(() => {
+    const sync = () => setMoonaStatus(getPetStatus("moona"));
+    sync();
+    window.addEventListener("furr:pet-status", sync);
+    return () => window.removeEventListener("furr:pet-status", sync);
+  }, []);
+
+  const pets = [
+    { img: boyDog, name: "Moona", breed: "Border Collie", dist: "0.2 km", tint: "bg-coral/15", handle: "moona", ...moonaStatus },
+    ...allPets,
+  ].filter((p) => (mode === "all" ? p.adoption || p.foster : mode === "adoption" ? p.adoption : p.foster));
+
   return (
     <AppShell activeTab="discover">
       <header className="px-6 pt-10">
@@ -41,11 +68,7 @@ function DiscoverScreen() {
       </div>
       <div className="mt-3 space-y-3 px-5">
         {nearbyVets.map((v) => (
-          <Link
-            to="/book"
-            key={v.name}
-            className="card-shadow flex items-center gap-3 rounded-3xl bg-white p-3"
-          >
+          <Link to="/book" key={v.name} className="card-shadow flex items-center gap-3 rounded-3xl bg-white p-3">
             <div className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl ${v.tint}`}>
               <img src={vet} alt="" className="h-full w-full object-contain p-1" loading="lazy" />
             </div>
@@ -53,21 +76,15 @@ function DiscoverScreen() {
               <div className="flex items-center gap-2">
                 <p className="font-display text-base font-700 truncate">{v.name}</p>
                 {v.open && (
-                  <span className="rounded-full bg-success/15 px-2 py-0.5 font-display text-[10px] font-700 text-success">
-                    OPEN
-                  </span>
+                  <span className="rounded-full bg-success/15 px-2 py-0.5 font-display text-[10px] font-700 text-success">OPEN</span>
                 )}
               </div>
               <p className="flex items-center gap-1 text-xs text-foreground/60">
                 <Stethoscope className="h-3 w-3" /> {v.spec}
               </p>
               <div className="mt-1 flex items-center gap-3 text-xs text-foreground/60">
-                <span className="flex items-center gap-1">
-                  <Star className="h-3 w-3 fill-sunshine text-sunshine" /> {v.rating}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MapPin className="h-3 w-3" /> {v.dist}
-                </span>
+                <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-sunshine text-sunshine" /> {v.rating}</span>
+                <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {v.dist}</span>
               </div>
             </div>
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white">
@@ -77,20 +94,35 @@ function DiscoverScreen() {
         ))}
       </div>
 
-      <h2 className="mt-6 px-6 font-display text-lg font-600">Adoption nearby</h2>
-      <div className="mt-3 grid grid-cols-2 gap-3 px-5 pb-6">
-        {[
-          { img: puppy, name: "Biscuit", breed: "Beagle", dist: "0.8 km", tint: "bg-sunshine/30", handle: "biscuit" },
-          { img: cat, name: "Mochi", breed: "Persian", dist: "1.2 km", tint: "bg-pinky/20", handle: "mochi" },
-        ].map((p) => (
-          <Link
-            to="/p/$id"
-            params={{ id: p.handle }}
-            key={p.name}
-            className="card-shadow overflow-hidden rounded-3xl bg-white"
+      <div className="mt-6 flex items-center justify-between px-6">
+        <h2 className="font-display text-lg font-600">Pets nearby</h2>
+        <span className="text-xs text-foreground/55">{pets.length} found</span>
+      </div>
+      <div className="mt-3 flex gap-2 px-5">
+        {([
+          { k: "all", label: "All", icon: Heart },
+          { k: "adoption", label: "Adoption", icon: Home },
+          { k: "foster", label: "Foster", icon: HandHeart },
+        ] as const).map(({ k, label, icon: Icon }) => (
+          <button
+            key={k}
+            onClick={() => setMode(k)}
+            className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 font-display text-xs font-700 ${mode === k ? "bg-foreground text-white" : "bg-white text-foreground/70 card-shadow"}`}
           >
-            <div className={`flex h-32 items-center justify-center ${p.tint}`}>
+            <Icon className="h-3.5 w-3.5" /> {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-3 grid grid-cols-2 gap-3 px-5 pb-6">
+        {pets.map((p) => (
+          <Link to="/p/$id" params={{ id: p.handle }} key={p.handle} className="card-shadow overflow-hidden rounded-3xl bg-white">
+            <div className={`relative flex h-32 items-center justify-center ${p.tint}`}>
               <img src={p.img} alt={p.name} className="h-full w-full object-contain p-3" loading="lazy" />
+              <div className="absolute left-2 top-2 flex gap-1">
+                {p.adoption && <span className="rounded-full bg-success px-2 py-0.5 font-display text-[10px] font-700 text-white">Adopt</span>}
+                {p.foster && <span className="rounded-full bg-coral px-2 py-0.5 font-display text-[10px] font-700 text-white">Foster</span>}
+              </div>
             </div>
             <div className="p-3">
               <div className="flex items-center justify-between">
@@ -104,6 +136,11 @@ function DiscoverScreen() {
             </div>
           </Link>
         ))}
+        {pets.length === 0 && (
+          <div className="col-span-2 rounded-3xl bg-white p-6 text-center text-sm text-foreground/55 card-shadow">
+            No pets match this filter yet.
+          </div>
+        )}
       </div>
     </AppShell>
   );

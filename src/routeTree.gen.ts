@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TodayRouteImport } from './routes/today'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReelsRouteImport } from './routes/reels'
+import { Route as RecordsRouteImport } from './routes/records'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PetRouteImport } from './routes/pet'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -31,6 +33,9 @@ import { Route as UHandleRouteImport } from './routes/u.$handle'
 import { Route as ThreadIdRouteImport } from './routes/thread.$id'
 import { Route as PostIdRouteImport } from './routes/post.$id'
 import { Route as PIdRouteImport } from './routes/p.$id'
+import { Route as LogVitalsRouteImport } from './routes/log.vitals'
+import { Route as LogVaccineRouteImport } from './routes/log.vaccine'
+import { Route as LogMedsRouteImport } from './routes/log.meds'
 import { Route as CommunitySlugRouteImport } from './routes/community.$slug'
 
 const TodayRoute = TodayRouteImport.update({
@@ -38,9 +43,19 @@ const TodayRoute = TodayRouteImport.update({
   path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReelsRoute = ReelsRouteImport.update({
   id: '/reels',
   path: '/reels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecordsRoute = RecordsRouteImport.update({
+  id: '/records',
+  path: '/records',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -143,6 +158,21 @@ const PIdRoute = PIdRouteImport.update({
   path: '/p/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LogVitalsRoute = LogVitalsRouteImport.update({
+  id: '/log/vitals',
+  path: '/log/vitals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogVaccineRoute = LogVaccineRouteImport.update({
+  id: '/log/vaccine',
+  path: '/log/vaccine',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogMedsRoute = LogMedsRouteImport.update({
+  id: '/log/meds',
+  path: '/log/meds',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommunitySlugRoute = CommunitySlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -166,9 +196,14 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
+  '/settings': typeof SettingsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/log/meds': typeof LogMedsRoute
+  '/log/vaccine': typeof LogVaccineRoute
+  '/log/vitals': typeof LogVitalsRoute
   '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
@@ -191,9 +226,14 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
+  '/settings': typeof SettingsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/log/meds': typeof LogMedsRoute
+  '/log/vaccine': typeof LogVaccineRoute
+  '/log/vitals': typeof LogVitalsRoute
   '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
@@ -217,9 +257,14 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/pet': typeof PetRoute
   '/profile': typeof ProfileRoute
+  '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
+  '/settings': typeof SettingsRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
+  '/log/meds': typeof LogMedsRoute
+  '/log/vaccine': typeof LogVaccineRoute
+  '/log/vitals': typeof LogVitalsRoute
   '/p/$id': typeof PIdRoute
   '/post/$id': typeof PostIdRoute
   '/thread/$id': typeof ThreadIdRoute
@@ -244,9 +289,14 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/records'
     | '/reels'
+    | '/settings'
     | '/today'
     | '/community/$slug'
+    | '/log/meds'
+    | '/log/vaccine'
+    | '/log/vitals'
     | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
@@ -269,9 +319,14 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/records'
     | '/reels'
+    | '/settings'
     | '/today'
     | '/community/$slug'
+    | '/log/meds'
+    | '/log/vaccine'
+    | '/log/vitals'
     | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
@@ -294,9 +349,14 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/pet'
     | '/profile'
+    | '/records'
     | '/reels'
+    | '/settings'
     | '/today'
     | '/community/$slug'
+    | '/log/meds'
+    | '/log/vaccine'
+    | '/log/vitals'
     | '/p/$id'
     | '/post/$id'
     | '/thread/$id'
@@ -320,8 +380,13 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   PetRoute: typeof PetRoute
   ProfileRoute: typeof ProfileRoute
+  RecordsRoute: typeof RecordsRoute
   ReelsRoute: typeof ReelsRoute
+  SettingsRoute: typeof SettingsRoute
   TodayRoute: typeof TodayRoute
+  LogMedsRoute: typeof LogMedsRoute
+  LogVaccineRoute: typeof LogVaccineRoute
+  LogVitalsRoute: typeof LogVitalsRoute
   PIdRoute: typeof PIdRoute
   PostIdRoute: typeof PostIdRoute
   ThreadIdRoute: typeof ThreadIdRoute
@@ -337,11 +402,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reels': {
       id: '/reels'
       path: '/reels'
       fullPath: '/reels'
       preLoaderRoute: typeof ReelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/records': {
+      id: '/records'
+      path: '/records'
+      fullPath: '/records'
+      preLoaderRoute: typeof RecordsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -484,6 +563,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/log/vitals': {
+      id: '/log/vitals'
+      path: '/log/vitals'
+      fullPath: '/log/vitals'
+      preLoaderRoute: typeof LogVitalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/log/vaccine': {
+      id: '/log/vaccine'
+      path: '/log/vaccine'
+      fullPath: '/log/vaccine'
+      preLoaderRoute: typeof LogVaccineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/log/meds': {
+      id: '/log/meds'
+      path: '/log/meds'
+      fullPath: '/log/meds'
+      preLoaderRoute: typeof LogMedsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/community/$slug': {
       id: '/community/$slug'
       path: '/$slug'
@@ -523,8 +623,13 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   PetRoute: PetRoute,
   ProfileRoute: ProfileRoute,
+  RecordsRoute: RecordsRoute,
   ReelsRoute: ReelsRoute,
+  SettingsRoute: SettingsRoute,
   TodayRoute: TodayRoute,
+  LogMedsRoute: LogMedsRoute,
+  LogVaccineRoute: LogVaccineRoute,
+  LogVitalsRoute: LogVitalsRoute,
   PIdRoute: PIdRoute,
   PostIdRoute: PostIdRoute,
   ThreadIdRoute: ThreadIdRoute,
@@ -533,13 +638,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

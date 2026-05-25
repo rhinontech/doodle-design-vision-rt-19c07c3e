@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronRight, Stethoscope, FileText, Sparkles, ShieldCheck, Pill } from "lucide-react";
+import { ChevronRight, Stethoscope, FileText, Sparkles, ShieldCheck, Pill, Syringe, Activity, FolderHeart } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import vet from "@/assets/doodle-vet.png";
@@ -11,10 +11,13 @@ export const Route = createFileRoute("/care")({
 
 const tiles = [
   { icon: Stethoscope, label: "Book a Vet", color: "bg-primary", to: "/book", text: "text-white" },
-  { icon: Sparkles, label: "AI Symptom Checker", color: "bg-coral", to: "/care", text: "text-white" },
-  { icon: FileText, label: "Pet Passport", color: "bg-sunshine", to: "/care", text: "text-foreground" },
-  { icon: Pill, label: "Reminders", color: "bg-pinky", to: "/care", text: "text-white" },
-  { icon: ShieldCheck, label: "Insurance", color: "bg-success", to: "/care", text: "text-white" },
+  { icon: Syringe, label: "Log Vaccine", color: "bg-success", to: "/log/vaccine", text: "text-white" },
+  { icon: Activity, label: "Log Vitals", color: "bg-coral", to: "/log/vitals", text: "text-white" },
+  { icon: Pill, label: "Log Meds", color: "bg-pinky", to: "/log/meds", text: "text-white" },
+  { icon: FolderHeart, label: "Medical Records", color: "bg-sunshine", to: "/records", text: "text-foreground" },
+  { icon: Sparkles, label: "AI Symptom Check", color: "bg-primary/90", to: "/care", text: "text-white" },
+  { icon: FileText, label: "Pet Passport", color: "bg-foreground", to: "/pet", text: "text-white" },
+  { icon: ShieldCheck, label: "Insurance", color: "bg-success/90", to: "/care", text: "text-white" },
 ];
 
 function CareScreen() {

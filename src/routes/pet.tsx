@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Share2, MapPin, ShieldCheck, Cake, Ruler, Sparkles, Syringe, BadgeCheck, Phone } from "lucide-react";
-import { useState } from "react";
+import { Heart, Share2, MapPin, ShieldCheck, Cake, Ruler, Sparkles, Syringe, BadgeCheck, Phone, HandHeart, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { moonaTimeline, moonaPassport } from "@/lib/demo-data";
+import { getPetStatus, setPetStatus } from "@/lib/pet-status";
 import boyDog from "@/assets/doodle-boy-dog.png";
 
 export const Route = createFileRoute("/pet")({
@@ -58,12 +59,40 @@ function PetScreen() {
 }
 
 function AboutTab() {
+  const [status, setStatus] = useState(() => getPetStatus("moona"));
+  useEffect(() => setStatus(getPetStatus("moona")), []);
+  const toggle = (k: "adoption" | "foster") => {
+    const next = { ...status, [k]: !status[k] };
+    setStatus(next);
+    setPetStatus("moona", next);
+  };
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-3 gap-3">
         <Stat icon={Cake} label="Age" value="2 y" />
         <Stat icon={Ruler} label="Weight" value="14 kg" />
         <Stat icon={MapPin} label="Mumbai" value="2 km" />
+      </div>
+
+      <div>
+        <h2 className="px-1 font-display text-base font-700">Availability</h2>
+        <p className="px-1 text-xs text-foreground/55">Show Moona on Discover for matching families.</p>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <button onClick={() => toggle("adoption")} className={`card-shadow flex items-center gap-3 rounded-2xl p-3 text-left ${status.adoption ? "bg-success text-white" : "bg-white"}`}>
+            <Home className="h-5 w-5" />
+            <div className="flex-1">
+              <p className="font-display text-sm font-700">Open for adoption</p>
+              <p className={`text-[11px] ${status.adoption ? "text-white/80" : "text-foreground/55"}`}>{status.adoption ? "Listed" : "Off"}</p>
+            </div>
+          </button>
+          <button onClick={() => toggle("foster")} className={`card-shadow flex items-center gap-3 rounded-2xl p-3 text-left ${status.foster ? "bg-coral text-white" : "bg-white"}`}>
+            <HandHeart className="h-5 w-5" />
+            <div className="flex-1">
+              <p className="font-display text-sm font-700">Open for foster</p>
+              <p className={`text-[11px] ${status.foster ? "text-white/80" : "text-foreground/55"}`}>{status.foster ? "Listed" : "Off"}</p>
+            </div>
+          </button>
+        </div>
       </div>
 
       <div>
