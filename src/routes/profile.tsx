@@ -48,19 +48,14 @@ function ProfileScreen() {
         </div>
       </div>
 
-      <h2 className="mt-6 px-6 font-display text-lg font-600">My pets</h2>
-      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {[
-          { name: "Moona", breed: "Collie · ♀ · 2y", tint: "bg-coral/15" },
-          { name: "Kobi", breed: "Tabby · ♂ · 4y", tint: "bg-primary/10" },
-        ].map((p) => (
-          <Link key={p.name} to="/pet" className={`shrink-0 rounded-3xl ${p.tint} p-4 w-44 card-shadow`}>
-            <div className="h-20 rounded-2xl bg-white/60" />
-            <p className="mt-2 font-display text-base font-700">{p.name}</p>
-            <p className="text-xs text-foreground/60">{p.breed}</p>
-          </Link>
-        ))}
+      <div className="mt-6 flex items-center justify-between px-6">
+        <h2 className="font-display text-lg font-600">My pets</h2>
+        <Link to="/add-pet" className="flex items-center gap-1 text-sm font-600 text-coral">
+          <Plus className="h-4 w-4" /> Add pet
+        </Link>
       </div>
+      <MyPets />
+
 
       <h2 className="mt-6 px-6 font-display text-lg font-600">Quick access</h2>
       <div className="mt-3 grid grid-cols-2 gap-3 px-5">
