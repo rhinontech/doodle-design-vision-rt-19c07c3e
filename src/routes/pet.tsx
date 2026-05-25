@@ -59,6 +59,13 @@ function PetScreen() {
 }
 
 function AboutTab() {
+  const [status, setStatus] = useState(() => getPetStatus("moona"));
+  useEffect(() => setStatus(getPetStatus("moona")), []);
+  const toggle = (k: "adoption" | "foster") => {
+    const next = { ...status, [k]: !status[k] };
+    setStatus(next);
+    setPetStatus("moona", next);
+  };
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-3 gap-3">
