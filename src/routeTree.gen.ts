@@ -28,6 +28,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CareRouteImport } from './routes/care'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AskRouteImport } from './routes/ask'
+import { Route as AddPetRouteImport } from './routes/add-pet'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UHandleRouteImport } from './routes/u.$handle'
 import { Route as ThreadIdRouteImport } from './routes/thread.$id'
@@ -133,6 +134,11 @@ const AskRoute = AskRouteImport.update({
   path: '/ask',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddPetRoute = AddPetRouteImport.update({
+  id: '/add-pet',
+  path: '/add-pet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -181,6 +187,7 @@ const CommunitySlugRoute = CommunitySlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-pet': typeof AddPetRoute
   '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-pet': typeof AddPetRoute
   '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
@@ -242,6 +250,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-pet': typeof AddPetRoute
   '/ask': typeof AskRoute
   '/book': typeof BookRoute
   '/care': typeof CareRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/add-pet'
     | '/ask'
     | '/book'
     | '/care'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/add-pet'
     | '/ask'
     | '/book'
     | '/care'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/add-pet'
     | '/ask'
     | '/book'
     | '/care'
@@ -365,6 +377,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddPetRoute: typeof AddPetRoute
   AskRoute: typeof AskRoute
   BookRoute: typeof BookRoute
   CareRoute: typeof CareRoute
@@ -528,6 +541,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AskRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/add-pet': {
+      id: '/add-pet'
+      path: '/add-pet'
+      fullPath: '/add-pet'
+      preLoaderRoute: typeof AddPetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -608,6 +628,7 @@ const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddPetRoute: AddPetRoute,
   AskRoute: AskRoute,
   BookRoute: BookRoute,
   CareRoute: CareRoute,

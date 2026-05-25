@@ -1,12 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award, Sun, CalendarDays, Siren, Stethoscope, Share2 } from "lucide-react";
+import { Settings, ChevronRight, Bell, MessageCircle, MapPin, Award, Sun, CalendarDays, Siren, Stethoscope, Share2, Plus } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import boyDog from "@/assets/doodle-boy-dog.png";
+import { useEffect, useState } from "react";
+import { getPets, type Pet } from "@/lib/pets-store";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [{ title: "Profile — Furr Circle" }] }),
   component: ProfileScreen,
 });
+
+const SEED = [
+  { id: "moona", name: "Moona", breed: "Collie · ♀ · 2y", tint: "bg-coral/15" },
+  { id: "kobi", name: "Kobi", breed: "Tabby · ♂ · 4y", tint: "bg-primary/10" },
+];
+
+const TINTS = ["bg-coral/15", "bg-primary/10", "bg-sunshine/30", "bg-pinky/15", "bg-success/15"];
 
 function ProfileScreen() {
   return (
