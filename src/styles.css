@@ -93,16 +93,17 @@
   --input: var(--blue-100);
   --ring: var(--blue-500);
 
-  /* Brand accent slots, re-mapped to blue scale */
-  --coral: var(--blue-500);
+  /* Colorful accent palette — kept warm for personality */
+  --coral: oklch(0.72 0.18 35);
   --coral-foreground: #ffffff;
-  --sunshine: var(--blue-200);
+  --sunshine: oklch(0.86 0.16 85);
   --sunshine-foreground: var(--blue-900);
   --success: oklch(0.68 0.18 150);
   --success-foreground: #ffffff;
-  --pinky: var(--blue-400);
+  --pinky: oklch(0.7 0.17 0);
   --pinky-foreground: #ffffff;
 }
+
 
 .dark {
   --background: var(--blue-950);
