@@ -13,7 +13,7 @@ const items: { key: NavKey; icon: typeof Home; label: string; to: string }[] = [
 
 export function BottomNav({ active }: { active: NavKey }) {
   return (
-    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border bg-white pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden">
       <div className="flex items-center justify-around px-2 pt-2 pb-2">
         {items.map(({ key, icon: Icon, label, to }) => {
           const isActive = key === active;
