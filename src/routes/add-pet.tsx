@@ -51,7 +51,7 @@ function AddPetScreen() {
   }
 
   return (
-    <main className="min-h-dvh bg-cream pb-32">
+    <main className="min-h-dvh bg-background pb-32">
       <header className="flex items-center gap-3 px-5 pt-10">
         <Link to="/profile" className="rounded-full bg-white p-2 card-shadow">
           <ChevronLeft className="h-5 w-5" />
