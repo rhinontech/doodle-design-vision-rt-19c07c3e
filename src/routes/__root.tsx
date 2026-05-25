@@ -77,6 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "Furr Circle" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:title", content: "Furr Circle — Where Pets Become Social" },
+      { name: "twitter:title", content: "Furr Circle — Where Pets Become Social" },
+      { property: "og:description", content: "Your pet's social home — match, care, community." },
+      { name: "twitter:description", content: "Your pet's social home — match, care, community." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e2313f9c-c2a4-41f0-955d-41d3034f10bd/id-preview-14943dec--4f78f8d6-2870-4846-b121-24937c278829.lovable.app-1779685256103.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e2313f9c-c2a4-41f0-955d-41d3034f10bd/id-preview-14943dec--4f78f8d6-2870-4846-b121-24937c278829.lovable.app-1779685256103.png" },
     ],
     links: [
       {
