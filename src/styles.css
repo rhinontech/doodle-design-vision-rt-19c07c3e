@@ -135,12 +135,13 @@
   --input: var(--blue-800);
   --ring: var(--blue-400);
 
-  --coral: var(--blue-400);
-  --coral-foreground: var(--blue-950);
-  --sunshine: var(--blue-700);
-  --sunshine-foreground: var(--blue-50);
-  --pinky: var(--blue-500);
+  --coral: oklch(0.72 0.18 35);
+  --coral-foreground: #ffffff;
+  --sunshine: oklch(0.78 0.15 85);
+  --sunshine-foreground: var(--blue-950);
+  --pinky: oklch(0.7 0.17 0);
   --pinky-foreground: #ffffff;
+
 }
 
 @layer base {
