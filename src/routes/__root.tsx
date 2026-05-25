@@ -115,6 +115,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("furr.theme") === "dark";
+    document.documentElement.classList.toggle("dark", saved);
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
@@ -122,3 +127,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
