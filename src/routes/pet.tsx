@@ -22,7 +22,7 @@ function PetScreen() {
       <div className="mt-2 px-5">
         <div className="card-shadow relative overflow-hidden rounded-[32px] bg-coral/20 p-6">
           <img src={boyDog} alt="Moona" className="mx-auto h-52 w-auto object-contain" loading="lazy" />
-          <button className="absolute right-4 top-4 rounded-full bg-white p-2 card-shadow"><Share2 className="h-4 w-4" /></button>
+          <Link to="/p/$id" params={{ id: "moona" }} className="absolute right-4 top-4 rounded-full bg-white p-2 card-shadow"><Share2 className="h-4 w-4" /></Link>
           <button className="absolute right-4 top-16 rounded-full bg-white p-2 card-shadow"><Heart className="h-4 w-4 fill-pinky text-pinky" /></button>
         </div>
       </div>
