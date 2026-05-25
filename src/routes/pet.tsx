@@ -75,6 +75,27 @@ function AboutTab() {
       </div>
 
       <div>
+        <h2 className="px-1 font-display text-base font-700">Availability</h2>
+        <p className="px-1 text-xs text-foreground/55">Show Moona on Discover for matching families.</p>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <button onClick={() => toggle("adoption")} className={`card-shadow flex items-center gap-3 rounded-2xl p-3 text-left ${status.adoption ? "bg-success text-white" : "bg-white"}`}>
+            <Home className="h-5 w-5" />
+            <div className="flex-1">
+              <p className="font-display text-sm font-700">Open for adoption</p>
+              <p className={`text-[11px] ${status.adoption ? "text-white/80" : "text-foreground/55"}`}>{status.adoption ? "Listed" : "Off"}</p>
+            </div>
+          </button>
+          <button onClick={() => toggle("foster")} className={`card-shadow flex items-center gap-3 rounded-2xl p-3 text-left ${status.foster ? "bg-coral text-white" : "bg-white"}`}>
+            <HandHeart className="h-5 w-5" />
+            <div className="flex-1">
+              <p className="font-display text-sm font-700">Open for foster</p>
+              <p className={`text-[11px] ${status.foster ? "text-white/80" : "text-foreground/55"}`}>{status.foster ? "Listed" : "Off"}</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div>
         <h2 className="px-1 font-display text-base font-700">Personality</h2>
         <div className="mt-2 flex flex-wrap gap-2">
           {["Playful", "Loves water", "Good with kids", "Loud barker", "Smart"].map((t, i) => (
