@@ -97,3 +97,39 @@ function Tile({ to, icon: Icon, label, tint }: { to: string; icon: typeof Bell; 
     </Link>
   );
 }
+
+function MyPets() {
+  const [pets, setPets] = useState<Pet[]>([]);
+  useEffect(() => {
+    const sync = () => setPets(getPets());
+    sync();
+    window.addEventListener("furr:pets", sync);
+    return () => window.removeEventListener("furr:pets", sync);
+  }, []);
+
+  return (
+    <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {SEED.map((p) => (
+        <Link key={p.id} to="/pet" className={`shrink-0 rounded-3xl ${p.tint} p-4 w-44 card-shadow`}>
+          <div className="h-20 rounded-2xl bg-white/60" />
+          <p className="mt-2 font-display text-base font-700">{p.name}</p>
+          <p className="text-xs text-foreground/60">{p.breed}</p>
+        </Link>
+      ))}
+      {pets.map((p, i) => (
+        <Link key={p.id} to="/pet" className={`shrink-0 rounded-3xl ${TINTS[(i + 2) % TINTS.length]} p-4 w-44 card-shadow`}>
+          <div className="h-20 overflow-hidden rounded-2xl bg-white/60">
+            {p.photo && <img src={p.photo} alt="" className="h-full w-full object-cover" />}
+          </div>
+          <p className="mt-2 font-display text-base font-700">{p.name}</p>
+          <p className="text-xs text-foreground/60 capitalize">{p.breed} · {p.gender === "female" ? "♀" : "♂"} · {p.ageYears}y</p>
+        </Link>
+      ))}
+      <Link to="/add-pet" className="shrink-0 flex flex-col items-center justify-center w-44 rounded-3xl bg-white card-shadow border-2 border-dashed border-foreground/15 text-foreground/60">
+        <Plus className="h-6 w-6" />
+        <span className="mt-1 font-display text-sm font-700">Add pet</span>
+      </Link>
+    </div>
+  );
+}
+
