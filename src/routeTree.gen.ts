@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TodayRouteImport } from './routes/today'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReelsRouteImport } from './routes/reels'
 import { Route as RecordsRouteImport } from './routes/records'
@@ -20,6 +21,7 @@ import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MemoryRouteImport } from './routes/memory'
 import { Route as MatchRouteImport } from './routes/match'
 import { Route as LostRouteImport } from './routes/lost'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as ComposeRouteImport } from './routes/compose'
@@ -42,6 +44,11 @@ import { Route as CommunitySlugRouteImport } from './routes/community.$slug'
 const TodayRoute = TodayRouteImport.update({
   id: '/today',
   path: '/today',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -92,6 +99,11 @@ const MatchRoute = MatchRouteImport.update({
 const LostRoute = LostRouteImport.update({
   id: '/lost',
   path: '/lost',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -196,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/lost': typeof LostRoute
   '/match': typeof MatchRoute
   '/memory': typeof MemoryRoute
@@ -206,6 +219,7 @@ export interface FileRoutesByFullPath {
   '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
   '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
   '/log/meds': typeof LogMedsRoute
@@ -227,6 +241,7 @@ export interface FileRoutesByTo {
   '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/lost': typeof LostRoute
   '/match': typeof MatchRoute
   '/memory': typeof MemoryRoute
@@ -237,6 +252,7 @@ export interface FileRoutesByTo {
   '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
   '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
   '/log/meds': typeof LogMedsRoute
@@ -259,6 +275,7 @@ export interface FileRoutesById {
   '/compose': typeof ComposeRoute
   '/discover': typeof DiscoverRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/lost': typeof LostRoute
   '/match': typeof MatchRoute
   '/memory': typeof MemoryRoute
@@ -269,6 +286,7 @@ export interface FileRoutesById {
   '/records': typeof RecordsRoute
   '/reels': typeof ReelsRoute
   '/settings': typeof SettingsRoute
+  '/signup': typeof SignupRoute
   '/today': typeof TodayRoute
   '/community/$slug': typeof CommunitySlugRoute
   '/log/meds': typeof LogMedsRoute
@@ -292,6 +310,7 @@ export interface FileRouteTypes {
     | '/compose'
     | '/discover'
     | '/events'
+    | '/login'
     | '/lost'
     | '/match'
     | '/memory'
@@ -302,6 +321,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reels'
     | '/settings'
+    | '/signup'
     | '/today'
     | '/community/$slug'
     | '/log/meds'
@@ -323,6 +343,7 @@ export interface FileRouteTypes {
     | '/compose'
     | '/discover'
     | '/events'
+    | '/login'
     | '/lost'
     | '/match'
     | '/memory'
@@ -333,6 +354,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reels'
     | '/settings'
+    | '/signup'
     | '/today'
     | '/community/$slug'
     | '/log/meds'
@@ -354,6 +376,7 @@ export interface FileRouteTypes {
     | '/compose'
     | '/discover'
     | '/events'
+    | '/login'
     | '/lost'
     | '/match'
     | '/memory'
@@ -364,6 +387,7 @@ export interface FileRouteTypes {
     | '/records'
     | '/reels'
     | '/settings'
+    | '/signup'
     | '/today'
     | '/community/$slug'
     | '/log/meds'
@@ -386,6 +410,7 @@ export interface RootRouteChildren {
   ComposeRoute: typeof ComposeRoute
   DiscoverRoute: typeof DiscoverRoute
   EventsRoute: typeof EventsRoute
+  LoginRoute: typeof LoginRoute
   LostRoute: typeof LostRoute
   MatchRoute: typeof MatchRoute
   MemoryRoute: typeof MemoryRoute
@@ -396,6 +421,7 @@ export interface RootRouteChildren {
   RecordsRoute: typeof RecordsRoute
   ReelsRoute: typeof ReelsRoute
   SettingsRoute: typeof SettingsRoute
+  SignupRoute: typeof SignupRoute
   TodayRoute: typeof TodayRoute
   LogMedsRoute: typeof LogMedsRoute
   LogVaccineRoute: typeof LogVaccineRoute
@@ -413,6 +439,13 @@ declare module '@tanstack/react-router' {
       path: '/today'
       fullPath: '/today'
       preLoaderRoute: typeof TodayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -483,6 +516,13 @@ declare module '@tanstack/react-router' {
       path: '/lost'
       fullPath: '/lost'
       preLoaderRoute: typeof LostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -637,6 +677,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComposeRoute: ComposeRoute,
   DiscoverRoute: DiscoverRoute,
   EventsRoute: EventsRoute,
+  LoginRoute: LoginRoute,
   LostRoute: LostRoute,
   MatchRoute: MatchRoute,
   MemoryRoute: MemoryRoute,
@@ -647,6 +688,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecordsRoute: RecordsRoute,
   ReelsRoute: ReelsRoute,
   SettingsRoute: SettingsRoute,
+  SignupRoute: SignupRoute,
   TodayRoute: TodayRoute,
   LogMedsRoute: LogMedsRoute,
   LogVaccineRoute: LogVaccineRoute,
@@ -659,3 +701,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
