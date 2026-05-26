@@ -25,7 +25,8 @@ function SignupPage() {
 
   return (
     <AuthShell
-      title="Create your account"
+      badge="Join the pack"
+      title="Create your account 🐾"
       subtitle="Join the pack in under a minute."
       footer={
         <>
