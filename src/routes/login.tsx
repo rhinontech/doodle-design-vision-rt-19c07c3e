@@ -24,7 +24,8 @@ function LoginPage() {
 
   return (
     <AuthShell
-      title="Welcome back"
+      badge="Welcome back"
+      title="Hey pet parent 👋"
       subtitle="Log in to continue caring for your pets."
       footer={
         <>
