@@ -13,23 +13,26 @@ const items: { key: NavKey; icon: typeof Home; label: string; to: string }[] = [
 
 export function BottomNav({ active }: { active: NavKey }) {
   return (
-    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border bg-card pb-[env(safe-area-inset-bottom)] md:hidden">
-      <div className="flex items-center justify-around px-2 pt-2 pb-2">
+    <nav
+      className="fixed left-1/2 z-40 w-[calc(100%-1.5rem)] max-w-[400px] -translate-x-1/2 rounded-full border border-white/40 bg-white/55 backdrop-blur-xl backdrop-saturate-150 shadow-[0_10px_40px_-12px_rgba(30,58,138,0.35)] dark:border-white/10 dark:bg-white/[0.06] md:hidden"
+      style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.75rem)` }}
+    >
+      <div className="flex items-center justify-around px-2 py-2">
         {items.map(({ key, icon: Icon, label, to }) => {
           const isActive = key === active;
           return (
             <Link
               key={key}
               to={to}
-              className="flex flex-1 flex-col items-center gap-1 py-1"
+              className="flex flex-1 flex-col items-center gap-0.5 py-1"
             >
               <Icon
-                className={`h-6 w-6 ${isActive ? "text-coral" : "text-foreground/55"}`}
+                className={`h-[22px] w-[22px] ${isActive ? "text-coral" : "text-foreground/60"}`}
                 strokeWidth={isActive ? 2.4 : 2}
               />
               <span
-                className={`font-display text-[11px] font-600 ${
-                  isActive ? "text-coral" : "text-foreground/55"
+                className={`font-display text-[10px] font-600 ${
+                  isActive ? "text-coral" : "text-foreground/60"
                 }`}
               >
                 {label}
