@@ -53,7 +53,7 @@ function ChatScreen() {
         ))}
       </div>
 
-      <button className="fixed bottom-24 left-1/2 -translate-x-1/2 translate-x-[140px] z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white card-shadow">
+      <button className="fixed bottom-24 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white card-shadow md:hidden">
         <Plus className="h-6 w-6" />
       </button>
     </AppShell>
