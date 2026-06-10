@@ -29,8 +29,7 @@ function FeedScreen() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Create"
-        className="fixed bottom-24 left-1/2 z-30 -translate-x-1/2 translate-x-[110px] card-shadow flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white transition-transform active:scale-95"
-        style={{ marginLeft: "0" }}
+        className="fixed bottom-24 right-5 z-50 card-shadow flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white transition-transform active:scale-95 md:hidden"
       >
         <Plus className="h-7 w-7" strokeWidth={2.4} />
       </button>
